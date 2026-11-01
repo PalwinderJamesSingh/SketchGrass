@@ -42,8 +42,10 @@ See USER_GUIDE.md for node connections, canvas navigation, saving, troubleshooti
 | Display | 1 |
 | **Total** | **55** |
 
-## Planned next feature: Version Manager
-SketchGrass 2.3.0 is planned to add an in-app **Update** button and Version Manager. Users will be able to choose a published compatible release to upgrade or downgrade, review release notes, and confirm the change. The design includes installer checksum verification, backup, staged installation, and rollback/recovery. This feature is **not present in 2.2.0** yet. See [ROADMAP.md](./ROADMAP.md).
+## Planned next features: Version Manager + Auto Save
+SketchGrass 2.3.0 is planned to add an in-app **Update** button and Version Manager, so users can choose a published compatible release to upgrade or downgrade after reviewing release notes. The design includes checksum verification, backup, staged installation, and rollback/recovery.
+
+The next release is also planned to **automatically save project graphs** (`.sgproj`) after edits, show save status, and keep recovery snapshots for unsaved work. Autosave will not save the SketchUp model (`.skp`); that remains a separate SketchUp save operation. Neither feature is present in 2.2.0 yet. See [ROADMAP.md](./ROADMAP.md).
 
 ## Important compatibility limits
 - SketchGrass is a native SketchUp implementation, not Rhino/Grasshopper running inside SketchUp.
