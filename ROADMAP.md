@@ -1,8 +1,10 @@
-# SketchGrass Roadmap — Version Manager
+# SketchGrass Roadmap
 
-## Planned for SketchGrass 2.3.0
+## 2.3.0 Preview status
 
-The next release is planned to include an in-app **Version Manager** and **Automatic Project Saving**.
+The 2.3.0 preview now includes the application menu bar, developer profile, and a local RBZ package staging command. The staging command verifies the ZIP signature and copies the selected package into the SketchGrass updates folder; it does not hot-replace loaded Ruby code. A SketchUp restart is required to complete installation.
+
+The full in-app **Version Manager**, seamless in-session reload, automatic background download, automated rollback, and **Automatic Project Saving** remain planned follow-up work.
 
 ### Automatic Project Saving
 - Automatically save the active `.sgproj` graph after edits, using a short debounce so continuous slider dragging does not write the file on every mouse movement.
