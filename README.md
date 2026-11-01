@@ -7,6 +7,7 @@ Independent Grasshopper-inspired visual parametric modeling extension for **Sket
 - **Getting started:** [USER_GUIDE.md](./USER_GUIDE.md)
 - **Component reference:** [COMPONENT_REFERENCE.md](./COMPONENT_REFERENCE.md)
 - **Release notes:** [RELEASE_NOTES_2.2.0.md](./RELEASE_NOTES_2.2.0.md)
+- **Roadmap:** [ROADMAP.md](./ROADMAP.md)
 
 The RBZ is the installer. The source archive is for developers and is not required to install the extension.
 
@@ -40,6 +41,9 @@ See USER_GUIDE.md for node connections, canvas navigation, saving, troubleshooti
 | Transform | 3 |
 | Display | 1 |
 | **Total** | **55** |
+
+## Planned next feature: Version Manager
+SketchGrass 2.3.0 is planned to add an in-app **Update** button and Version Manager. Users will be able to choose a published compatible release to upgrade or downgrade, review release notes, and confirm the change. The design includes installer checksum verification, backup, staged installation, and rollback/recovery. This feature is **not present in 2.2.0** yet. See [ROADMAP.md](./ROADMAP.md).
 
 ## Important compatibility limits
 - SketchGrass is a native SketchUp implementation, not Rhino/Grasshopper running inside SketchUp.
