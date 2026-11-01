@@ -1,48 +1,24 @@
-# SketchGrass 2.3.0 Preview
+# SketchGrass 2.5.0
 
 Independent Grasshopper-inspired visual parametric modeling extension for **SketchUp 2023**. Built with the SketchUp Ruby API and HtmlDialog; Rhino is not required.
 
-## Latest preview: 2.3.0
-
-This preview builds on the 2.2.x component editor and adds:
-- Application menu bar with Help and Extensions dropdowns.
-- **Help → About Me** developer profile for Palwinder James Singh, School of Architecture, National University Philippines.
-- **Extensions → Install New Update…** to select a local RBZ, validate its ZIP signature, and stage it in SketchGrass' update folder.
-- **Extensions → Check for Updates** and **Version History** shortcuts.
-
-**Updater limitation:** this preview stages a selected RBZ package but does not replace loaded Ruby code in the active SketchUp process. SketchUp must be restarted before the staged extension can be installed. Seamless hot-reload, automatic background downloads, automated rollback, and the full version selector are not implemented in this preview.
+## 2.5.0 update
+- Safer update preparation asks permission to save the active SketchGrass definition (.sgproj) and active SketchUp model (.skp) before restart.
+- Untitled SketchUp models trigger Save As. Existing modified models are saved to their current location.
+- Cancelled or failed saves stop update preparation; SketchUp is not force-closed.
+- The updater stages the RBZ and asks the user to close SketchUp normally and reopen it. Forced process relaunch was removed to avoid unstable restart behavior.
+- Unified visible version label: v2.5.0.
 
 ## Downloads and documentation
-
-- [SketchGrass 2.3.0 Preview release notes](./RELEASE_NOTES_2.3.0.md)
+- [2.5.0 release notes](./RELEASE_NOTES_2.5.0.md)
 - [User guide](./USER_GUIDE.md)
 - [Component reference](./COMPONENT_REFERENCE.md)
 - [Roadmap](./ROADMAP.md)
-- [Previous 2.2.0 installer](./SketchGrass_2.2.0.rbz)
 
-The 2.3.0 preview installer and source package are provided separately in this conversation. They have not yet been attached as GitHub binary release assets.
-
-## Install
-
-1. Download the 2.3.0 RBZ package.
-2. In SketchUp 2023, open **Window → Extension Manager**.
-3. Choose **Install Extension** and select `SketchGrass_2.3.0.rbz`.
-4. Restart SketchUp if prompted.
-5. Open **Extensions → SketchGrass**.
-
-## Retained capabilities
-
-- Visual node graph editor, category ribbon and component browser.
-- Existing native component library and geometry output.
-- `.sgproj` project save/open.
-- Declarative component package installation and GHA2SG inspection/scaffold workflow.
+The 2.5.0 installer and source archive are distributed separately; a GitHub binary release asset has not been published.
 
 ## Compatibility and testing
-
-Target: SketchUp 2023. Ruby syntax and archive integrity checks passed for this preview package. It has **not** been runtime-tested inside SketchUp 2023. Treat it as a preview build, not a production-stable release.
+Target: SketchUp 2023. Ruby and JavaScript syntax checks and archive integrity checks passed. This package has not been runtime-tested inside SketchUp 2023.
 
 ## Creator
-
-**Palwinder James Singh**  
-School of Architecture, National University Philippines  
-Creator & Developer of SketchGrass
+**Palwinder James Singh** — School of Architecture, National University Philippines; Creator & Developer of SketchGrass.
