@@ -2,7 +2,19 @@
 
 ## Planned for SketchGrass 2.3.0
 
-The next release is planned to include an in-app **Version Manager**.
+The next release is planned to include an in-app **Version Manager** and **Automatic Project Saving**.
+
+### Automatic Project Saving
+- Automatically save the active `.sgproj` graph after edits, using a short debounce so continuous slider dragging does not write the file on every mouse movement.
+- Also run a configurable periodic save (default target: every 30 seconds) while the graph is dirty.
+- For projects that have already been saved, update the existing project file safely using a temporary file and atomic replacement where supported.
+- For a new, never-saved graph, write recovery copies to a dedicated SketchGrass autosave/recovery folder; do not silently choose a user-facing project filename or overwrite an unrelated file.
+- Show a clear status in the editor: **Saved**, **Saving…**, or **Unsaved changes**.
+- Provide settings to enable/disable autosave and adjust the interval.
+- Keep a small rolling set of recovery snapshots (target: last 5) and offer recovery after an unexpected SketchUp/editor shutdown.
+- Preserve the normal **Save** and **Save As** commands; autosave is a safety net, not a replacement for deliberate project management.
+- Autosave the `.sgproj` graph data only. Saving the SketchUp model geometry still requires saving the `.skp` model in SketchUp.
+- Avoid writing when the graph has not changed, and handle write failures without marking the project as saved.
 
 ### User interface
 - Add an **Update** button in the SketchGrass main toolbar or settings area.
