@@ -58,6 +58,69 @@ The Version Manager must not treat a source ZIP, arbitrary repository file, or u
 
 ## Component Package Ecosystem and Interoperability
 
+### Integration priority and architecture
+
+Implementation order:
+1. **SketchUp extension bridge first.** This is the lowest-friction path because SketchGrass already runs inside SketchUp. Other Ruby extensions can register named providers and operations through a stable public API.
+2. **Grasshopper second.** Start with file-based data/geometry exchange and a Grasshopper-side companion connector. Add optional live communication later. Do not attempt to load Grasshopper/.NET assemblies into SketchUp's Ruby runtime.
+3. **Dynamo third.** Use a separate companion connector and the same shared data contract. Treat Dynamo host-specific nodes (for example Revit-dependent nodes) as unavailable unless the relevant host is running and explicitly supported.
+
+All integrations connect through one gateway and one internal type system:
+
+```text
+SketchGrass UI / Node Canvas
+        |
+Parametric Graph Engine
+        |
+Interoperability Gateway
+        |-- SketchUp Extension Adapter (in-process Ruby)
+        |-- Grasshopper Adapter (companion connector / exchange)
+        |-- Dynamo Adapter (companion connector / exchange)
+        |
+Typed Data Contract + Geometry Conversion + Connection Manager
+        |
+SketchUp Ruby API / Model Entities
+```
+
+### Shared data contract
+Use a versioned JSON envelope for messages and exchange files. Every message should include `protocol_version`, `source`, `target`, `message_id`, `operation`, `units`, `coordinate_system`, `inputs`, and `outputs` or an explicit error object.
+
+Canonical internal types:
+- Scalars: number, integer, boolean, string.
+- Geometry: point3, vector3, plane, line, polyline, arc/circle, curve, face/surface, mesh, component reference, and material reference.
+- Collections: list and nested tree with explicit paths/branches and item ordering.
+- Metadata: units, coordinate system, object name, stable source ID, source application/version, and supported attributes.
+
+Define explicit conversion rules. For example, a Rhino NURBS surface or Dynamo solid that SketchUp cannot represent directly must be retained as an exchange reference or converted to an agreed mesh/face approximation with tolerance metadata; never silently flatten or discard geometry.
+
+### Proposed package and extension contracts
+- `.sgpkg` package manifest fields: package_id, package_version, display_name, author, SketchGrass API compatibility, SketchUp compatibility, dependencies, component IDs, permissions, and checksums.
+- Each component declares typed input/output ports, defaults, units, operation identifier, category, icon, documentation, and capability requirements.
+- The SketchUp Ruby bridge should expose registration, typed invocation, result serialization, capability checks, and controlled model access. Providers must not directly mutate the model during graph evaluation; model writes occur through a controlled bake/commit stage.
+- Use stable provider and component IDs rather than display names as identifiers. Detect ID collisions and incompatible versions before enabling a package.
+- Begin with declarative components and reviewed native Ruby providers. Any executable provider must be explicitly trusted, locally installed, permission-scoped, and version-checked.
+
+### Connection modes
+- **Import/export:** user-triggered, reproducible file exchange; first delivery target.
+- **Local live link:** optional companion process using authenticated localhost communication; show connection state, explicit permissions, timeouts, and manual/automatic recompute controls.
+- **Remote compute:** optional future integration (for example a separately deployed Rhino.Compute service), requiring explicit endpoint configuration, authentication, and licensing review.
+
+### Security and failure handling
+- Do not execute arbitrary downloaded code, `.gha`, `.ghpy`, `.dll`, or external scripts inside SketchGrass.
+- Do not assume that installing another extension grants SketchGrass permission to invoke it.
+- Require explicit user approval for providers, external connections, model writes, and live links.
+- Validate message size, schema, types, units, IDs, and source versions. Apply timeouts and cancellation; never block the SketchUp UI while waiting for external computation.
+- Isolate provider failures: report the failing adapter/component and keep the rest of the graph editable.
+- Log connection and conversion errors without collecting private model content unnecessarily.
+
+### Delivery milestones
+1. **Interop foundation:** type registry, JSON envelope, conversion tests, adapter registry, package manifest schema.
+2. **SketchUp extension bridge:** provider registration, sample extension, controlled model access, and a working third-party node demo.
+3. **Grasshopper exchange:** documented import/export mapping and companion connector proof of concept; add live mode only after file exchange is stable.
+4. **Dynamo exchange:** connector proof of concept, typed mapping, and explicit handling of host-dependent nodes.
+5. **Package ecosystem:** package browser, install/disable/update, dependency resolution, signing/checksum checks, permissions, and developer SDK.
+
+Acceptance criteria: each adapter must pass round-trip tests for supported data types, unit/coordinate conversion tests, malformed-message tests, cancellation/time-out tests, and SketchUp 2023 UI responsiveness tests. Publish only integrations that have been tested against named application versions.
 ### Expanded native component library
 Build a larger, modular library focused on practical architectural and computational-design workflows. Priority families:
 - **Geometry parameters:** planes, frames, boxes, vectors, meshes, faces, edges, solids, text, materials, and model/entity references.
