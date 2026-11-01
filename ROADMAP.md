@@ -56,5 +56,41 @@ The Version Manager must not treat a source ZIP, arbitrary repository file, or u
 - Never overwrite the current install before the backup and checksum verification succeed.
 - Keep the user in control: no silent updates, no forced downgrade, and no deletion of user .sgproj files.
 
+## Component Package Ecosystem and Interoperability
+
+### Expanded native component library
+Build a larger, modular library focused on practical architectural and computational-design workflows. Priority families:
+- **Geometry parameters:** planes, frames, boxes, vectors, meshes, faces, edges, solids, text, materials, and model/entity references.
+- **Math and domains:** trigonometry, expressions, interpolation, remapping, statistics, matrices, and unit conversion.
+- **Lists and data trees:** graft, flatten, simplify, path mapping, merge, partition, dispatch, cull patterns, and tree/list inspection.
+- **Curve tools:** offsets, fillets, joins, trims, intersections, projections, frames, tangents, curvature sampling, and curve division.
+- **Surface and solid tools:** loft, sweep, revolve, planar surface, boundary surface, offset, thicken, boolean operations, shell, and sectioning, subject to SketchUp API geometry limits.
+- **Mesh tools:** mesh creation, triangulation, subdivision utilities, normals, face/vertex extraction, and mesh transforms.
+- **Transform and array tools:** rotate, mirror, orient, align, polar/rectangular arrays, attractor transforms, and pattern placement.
+- **Architectural generators:** grids, panels, louvers, fins, mullions, shading systems, stairs, ramps, trusses, space frames, room/area layouts, and component-based assemblies.
+- **Analysis and documentation:** dimensions, area/volume summaries, sun/shadow inputs where available, schedules, labels, reports, and geometry diagnostics.
+- **Model integration:** tags/layers, materials, component definitions/instances, attributes, scene/camera helpers, and controlled read/write of SketchUp model entities.
+
+Each new component must document its inputs, outputs, units, supported geometry, error behavior, and test cases. Do not advertise a component as implemented until its operation is registered and tested.
+
+### Native package ecosystem
+- Establish a documented **SketchGrass Component SDK** and versioned package manifest.
+- Support installable component bundles (proposed `.sgpkg`) containing a manifest, component definitions, icons, documentation, compatibility metadata, and dependency declarations.
+- Add package manager actions: browse/import, install, enable/disable, update, uninstall, dependency inspection, conflict detection, and package validation.
+- Provide package signing/checksum verification and explicit trust prompts.
+- Support a safe declarative component format first; add reviewed native adapters for trusted Ruby implementations. Do not execute arbitrary downloaded scripts or binaries.
+- Allow third-party developers to publish independently versioned component packs, with per-package compatibility declarations for SketchUp and SketchGrass versions.
+
+### Connecting to other parametric plugins
+Create a public **Parametric Interoperability API** so SketchGrass can exchange data and geometry with other SketchUp extensions and external parametric tools through adapters:
+- A stable typed data contract for numbers, booleans, strings, points, vectors, planes, curves, surfaces, meshes, lists, and nested data paths.
+- Import/export through documented JSON-based graph/data exchange, plus geometry exchange using supported neutral formats when appropriate.
+- A SketchUp extension bridge/API for other Ruby plugins to register providers, expose operations, send typed inputs/outputs, and request controlled model-geometry access.
+- Adapter packages for specific third-party tools only after their public APIs and licensing allow integration.
+- Clear source/target mapping, unit and coordinate-system handling, version negotiation, and actionable errors when a data type cannot be represented.
+- Optional live-link sessions with explicit user approval, connection status, and manual/automatic recompute controls.
+
+**Compatibility boundary:** this is an interoperability layer, not a promise that every parametric plugin can be connected automatically. Each external plugin needs a supported public API or file/data exchange route and, where necessary, a dedicated adapter. Rhino Grasshopper `.gha`/`.ghpy`/`.dll` packages still cannot run directly inside SketchGrass; compatible functionality must be ported or bridged through an explicitly supported integration.
+
 ## Status
-**Planned — not included in SketchGrass 2.2.0.** This document records the accepted feature request; it is not a claim that the updater already exists.
+**Planned — not included in SketchGrass 2.2.0.** This roadmap records requested future capabilities; it is not a claim that the updater, autosave, expanded SDK, or interoperability bridge already exists.
