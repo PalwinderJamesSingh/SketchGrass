@@ -47,6 +47,9 @@ SketchGrass 2.3.0 is planned to add an in-app **Update** button and Version Mana
 
 The next release is also planned to **automatically save project graphs** (`.sgproj`) after edits, show save status, and keep recovery snapshots for unsaved work. Autosave will not save the SketchUp model (`.skp`); that remains a separate SketchUp save operation. Neither feature is present in 2.2.0 yet. See [ROADMAP.md](./ROADMAP.md).
 
+## Planned component ecosystem
+The roadmap also covers a larger architectural/computational component library, installable third-party component packages, a documented Component SDK, and a Parametric Interoperability API for connecting compatible plugins through adapters or typed data/geometry exchange. This is not universal plug-in compatibility: each external tool needs a supported API or exchange format. These capabilities are planned, not part of 2.2.0. See [ROADMAP.md](./ROADMAP.md).
+
 ## Important compatibility limits
 - SketchGrass is a native SketchUp implementation, not Rhino/Grasshopper running inside SketchUp.
 - Native Grasshopper .gha, .ghpy, and .NET .dll files cannot be executed directly. GHA2SG performs heuristic metadata inspection and creates a porting scaffold, not automatic conversion.
