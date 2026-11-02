@@ -1,50 +1,21 @@
-# SketchGrass 2.6.0
+# SketchGrass 2.6.1
 
 Independent Grasshopper-inspired visual parametric modeling extension for **SketchUp 2023**. Built with the SketchUp Ruby API and HtmlDialog; Rhino is not required for native SketchGrass operations.
 
-## Current release: 2.6.0 — Advanced Geometry Engine
+## Current build: 2.6.1 — Stabilization and Project Safety
 
-Adds seven curve, surface, and transformation components:
+This update hardens project validation and named-project saving while retaining the 2.6.0 geometry engine. Project data is validated and written to a temporary file before replacing the current save; a `.bak` copy of the previous named `.sgproj` is retained. Graph size and node/wire structure are validated before loading or saving.
 
-- **Loft:** creates a quad-strip surface between two section curves.
-- **Sweep 1 Rail:** sweeps a profile along a sampled polyline rail.
-- **Revolve:** creates a rotational surface around the world Z axis.
-- **Offset Polyline:** offsets a planar XY polyline.
-- **Linear Array:** creates translated copies along a vector.
-- **Project to XY:** projects supported geometry onto a selected elevation.
-- **Section at Z:** extracts approximate intersections at a horizontal elevation.
-
-These operations generate SketchUp-native faces, edges, and points. Loft, sweep, and revolve are tessellated polygon approximations, not NURBS surfaces. Offset and section operations have geometric limitations; this is not a general-purpose solid modeling kernel.
-
-### Earlier architectural components
-
-Wall (Linear), Floor Slab, Column Grid, Facade Panel Grid, and Roof Plate.
-
-## Roadmap
-
-The planned development sequence is:
-
-1. **2.6.1 — Stabilization:** SketchUp 2023 runtime testing, dialog and startup reliability, save/recovery workflows, and menu regression testing.
-2. **2.7.0 — Architectural Modeling Library:** building envelope, facade systems, openings, interiors, stairs, roofs, and landscape components.
-3. **2.8.0 — Structural and Construction Systems:** framing, trusses, slabs, foundations, assemblies, construction phases, and preliminary quantities.
-4. **2.9.0 — Interoperability:** documented data exchange and supported Grasshopper/Rhino and Dynamo companion workflows.
-5. **3.0.0 — Complete Parametric Studio:** data trees, reusable definitions, custom component SDK, package manager, and performance improvements.
-
-See [ROADMAP.md](./ROADMAP.md) for scope, limitations, and milestone exit criteria.
+### Geometry components retained from 2.6.0
+Loft, Sweep 1 Rail, Revolve, Offset Polyline, Linear Array, Project to XY, and Section at Z, plus Wall (Linear), Floor Slab, Column Grid, Facade Panel Grid, and Roof Plate. Loft, sweep, and revolve create tessellated SketchUp-native geometry, not NURBS surfaces. Offset and section operations remain approximate.
 
 ## Documentation
-
 - [Development roadmap](./ROADMAP.md)
-- [2.6.0 release notes](./RELEASE_NOTES_2.6.0.md)
-- [User guide](./USER_GUIDE.md)
-- [Component reference](./COMPONENT_REFERENCE.md)
-
-The 2.6.0 installer and source archive are distributed with the release package. A GitHub binary release asset is not published.
+- [2.6.1 release notes](./RELEASE_NOTES_2.6.1.md)
+- [2.6.0 geometry release notes](./RELEASE_NOTES_2.6.0.md)
 
 ## Compatibility and testing
-
-**Target:** SketchUp 2023. Ruby and JavaScript syntax checks and ZIP integrity checks passed. This package has **not** been runtime-tested inside SketchUp 2023. Test on a copy of your model before production use.
+**Target:** SketchUp 2023. Ruby/JavaScript syntax checks and archive integrity checks passed. This package has **not** been runtime-tested inside SketchUp 2023. The updater stages packages but does not force-restart SketchUp; install staged updates manually through Extension Manager after closing SketchUp normally. Test on copies of important models before production use.
 
 ## Creator
-
 **Palwinder James Singh** — School of Architecture, National University Philippines; Creator & Developer of SketchGrass.
