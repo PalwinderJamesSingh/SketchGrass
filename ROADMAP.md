@@ -1,111 +1,59 @@
 # SketchGrass Development Roadmap
 
-**Current build:** 2.6.1 — Stabilization and Project Safety  
+**Current build:** 2.9.0 — Interoperability & Data Exchange  
 **Target platform:** SketchUp 2023
 
-The roadmap describes intended development. A feature is not considered fully released until implemented, validated, documented, and tested in the target SketchUp version.
+A feature is considered released only when implemented, documented, validated, and tested in the target SketchUp version. Static checks do not replace SketchUp runtime testing.
 
-## Product direction
+## Delivered — 2.9.0: Interoperability & Data Exchange
+- Versioned `.sgx` interchange format (`schema_version: 1`).
+- Export of graph nodes/wires, required component IDs, component metadata, parameter values, unit/coordinate metadata, and evaluated geometry snapshot.
+- Import with schema validation, compatibility report, and unsupported-component handling.
+- Geometry-only import through the Geometry Input parameter component.
+- Metre units, right-handed coordinate system, Z-up axis, and documented supported geometry schema.
+- 50 MB file-size limit and structural validation of supported geometry records.
+- Interchange schema documentation for third-party adapter authors.
 
-SketchGrass is an independent visual parametric modeling environment built around SketchUp-native geometry for architecture, structures, and construction. The core uses the SketchUp Ruby API and HtmlDialog; Rhino is not required for native SketchGrass operations.
+**Boundary:** this release provides a documented data-exchange contract, not live Grasshopper/Rhino or Dynamo execution. Third-party plug-ins and their code are not executed or automatically translated. Schema v1 supports points, lines, polylines, planar faces, circles, and extrusion boundary data; full NURBS/B-rep semantics and materials/tags are outside its scope.
 
-## 2.6.1 — Stabilization and Project Safety
+## Delivered — 2.8.3: Animated Guide & Output Preview
+- Per-input suggested source components and per-output downstream recommendations.
+- Add-and-connect workflows.
+- Schematic preview and geometry summary before generating into SketchUp.
 
-**Status: Code update implemented; static checks passed; SketchUp runtime testing outstanding.**
+## Delivered — 2.8.2: Animated Component Guide & Connection Assistant
+- Searchable guide metadata for component purpose, sockets, defaults, and animated data flow.
+- Connection assistant for missing inputs and unused outputs.
 
-- Unified extension registration, toolbar, menu, workspace, and project metadata version.
-- Strengthened project validation for object structure and graph size.
-- Validates and serializes project data before writing a temporary file.
-- Reads back and validates the temporary file before replacing the named project.
-- Retains a `.bak` copy of the previous named `.sgproj` save.
-- Retains the 2.6.0 geometry and architectural components.
+## Delivered — 2.8.1: Component Browser Fix
+- Corrected the component-definition separator that prevented the 2.8.0 browser from initializing.
+- Restored the ALL view and category counts.
 
-**Limitations:** the backup covers named `.sgproj` files, not the SketchUp `.skp` model. Save All is not an atomic transaction. The updater still requires manual installation through Extension Manager after a normal SketchUp close. This release has not been runtime-tested inside SketchUp 2023.
+## Delivered — 2.8.0: Advanced Parametric & Modeling Tools
+- Graph mapping, attractor falloff, list operations, curve evaluation and sampling, arrays, transformations, panelization, adaptive facade tools, tower massing, spiral stairs, and conceptual space frames.
 
-## 2.7.0 — Architectural Modeling Library
+## Delivered — 2.7.0: Architecture, Structure & Construction Suite
+- Architectural building elements and façade systems.
+- Structural grids, columns, beams, trusses, and conceptual framing.
+- Construction assemblies, phases, and preliminary quantity reporting.
 
-**Planned**
-
-### Building envelope
-- Wall systems with thickness, height, baseline, and alignment controls.
-- Door and window openings with configurable dimensions and placement.
-- Curtain-wall and storefront grids.
-- Facade panelization, louvers, fins, screens, and shading devices.
-- Building envelope and facade pattern generators.
-
-### Interior and spatial systems
-- Room and space layout primitives.
-- Partitions, interior wall systems, floors, ceilings, and modular finish layouts.
-- Stairs, ramps, landings, and railings.
-- Basic room adjacency and area schedules.
-
-### Roof and landscape architecture
-- Flat, pitched, folded, and configurable roof systems.
-- Roof framing and panel layouts, canopies, and pergolas.
-- Paths, terraces, planters, site furniture, and topography-aware placement tools.
-
-**Exit criteria:** documented inputs/outputs/units; editable SketchUp-native geometry; repeatable sample definitions; tested component behavior.
-
-## 2.8.0 — Structural and Construction Systems
-
-**Planned**
-
-- Structural grids, columns, beams, braces, trusses, and space frames.
-- Slabs, basic foundation layouts, and pile/grid placement.
-- Parametric connection and node-location placeholders.
-- Assemblies and subassemblies; modular construction and panel layouts.
-- Basic wall/floor/roof build-ups.
-- Construction sequence and phase visualization.
-- Preliminary component counts, lengths, areas, and quantity take-offs.
-- Organization by system, level, phase, and assembly.
-
-**Boundary:** these are geometric modeling and preliminary coordination tools, not structural analysis, engineering design, code compliance, connection design, or professional construction documentation.
-
-## 2.9.0 — Interoperability and Data Exchange
-
-**Planned**
-
-- Versioned SketchGrass interchange format.
-- Structured geometry and parameter exchange through supported formats.
-- Improved SketchUp-native geometry import/export.
-- Explore purpose-built Grasshopper/Rhino companion and Dynamo data-exchange workflows.
-- Component metadata inspection, compatibility reports, and project migration tools.
-
-**Compatibility boundary:** native `.gha` and `.ghpy` plug-ins do not execute directly in SketchUp's Ruby environment. Arbitrary compiled plug-ins, RhinoCommon dependencies, and Python/C# scripts cannot be universally translated. Interoperability will focus on documented data exchange and supported adapters.
-
-## 3.0.0 — Complete Parametric Studio
-
-**Planned**
-
-- More capable data trees and structured list operations.
+## 3.0.0 — Complete Parametric Studio (planned)
+- Hierarchical data trees and structured list operations.
 - Reusable definitions, clusters, and nested graphs.
-- Custom component authoring and a documented component SDK.
-- Package manager for third-party components and dependency management.
-- Component search, categories, favorites, and version compatibility.
-- Improved graph evaluation, caching, and large-definition performance.
-- Project versioning, migration, backups, and recovery.
-- Expanded documentation, examples, and optional collaboration workflows.
+- Custom component authoring and a documented SDK.
+- Package manager, dependency/version compatibility, and component publishing.
+- Graph evaluation caching, diagnostics, and large-definition performance.
+- Project revision history, migration, backups, and recovery improvements.
 
-## Cross-version systems
-
-| System | Ongoing responsibility |
+## Cross-version priorities
+| System | Responsibility |
 |---|---|
-| Node Canvas | Graph editing, wires, selection, navigation, grouping, evaluation feedback |
+| Node Canvas | Graph editing, wires, grouping, evaluation feedback |
 | Component Browser | Search, categories, documentation, favorites, placement |
 | Geometry Engine | Native geometry generation, validation, performance |
-| Project Manager | New/open/save, recent projects, autosave, recovery, migration |
-| Update Manager | Safe package staging, compatibility checks, user-controlled installation |
-| Package Manager | Third-party components, dependencies, versioning |
-| Documentation | Component reference, user guide, release notes, sample projects |
-
-## Recommended implementation order
-
-1. Runtime-test and stabilize 2.6.1 in SketchUp 2023.
-2. Complete the architectural component library.
-3. Build structural and construction modeling systems.
-4. Add documented interoperability and data exchange.
-5. Mature data trees, custom components, package management, and performance for 3.0.0.
+| Interchange | Versioned schema, import/export, adapter compatibility |
+| Project Manager | Save/load, autosave, recovery, migration |
+| Update Manager | Safe staging and user-controlled installation |
 
 ## Release quality policy
-
-Before a version is described as fully verified, test installation, startup, save/load, recovery, geometry generation, and update workflows in the target SketchUp version. Static syntax and archive checks are necessary but do not replace runtime testing. State all untested areas and known limitations in release notes.
+Before describing a version as runtime-verified, test installation, startup, save/load, recovery, graph evaluation, geometry preview/generation, and interchange workflows inside SketchUp 2023. State all untested areas and limitations in release notes.
